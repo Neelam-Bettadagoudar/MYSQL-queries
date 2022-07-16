@@ -1,0 +1,171 @@
+
+--select,AND,OR,NOT
+--SELECT first_name,last_name FROM Customers;
+--SELECT * FROM Customers WHERE last_name ='Doe' AND age >10;
+
+--distinct and count
+--SELECT distinct first_name,country from Customers-> gives unique elements
+--SELECT count(distinct first_name) from Customers -> gives the count
+
+--distinct Vs group by
+--SELECT distinct first_name from Customers;
+--SELECT first_name from Customers group by first_name;
+
+--distinct with order by
+--SELECT distinct age from Customers order by age DESC;
+--SELECT distinct age from Customers;
+
+
+
+--select AS
+--select first_name as name from Customers;
+--select CONCAT(first_name,' ',last_name) AS full_name from Customers;
+--SELECT  *, CONCAT(first_name, last_name) AS first_name FROM Customers;
+
+--TOP, LIMIT and OFFSET
+--select top 2 * from Customers;
+--select first_name from Customers limit 2;
+--select first_name from Customers limit 2 offset 3;
+--select * from Customers limit 2 offset 3;
+
+
+--IN, NOT IN
+--select first_name,country from Customers where country IN ('USA','UK');
+--select first_name,country from Customers where 'USA' IN (country);
+--select first_name,country from Customers where 'USA' NOT IN (country);
+
+--TO FIND CUSTOMERS WHO HAVE MADE THE ORDER
+--SELECT * from Customers where customer_id NOT IN(select customer_id from Orders);
+
+--BETWEEN, NOT BETWEEN and BETWEEN WITH TEXT
+--select item,amount from orders where amount between 300 AND 500;
+--select item,amount from orders where amount not between 300 AND 500;
+--select item,amount from orders where item between 'I' AND 'L';
+--select item,amount from orders where item between 'I' AND 'L~';
+--select item,amount from orders where item between 'Key' AND 'Mou';
+
+--create,insert
+--create table Employee(emp_id int primary key,first_name varchar(100),last_name varchar(100),department varchar(100),email varchar(100));
+--insert into Employee (emp_id,first_name,last_name,department,email) values (1,'Peter','Doe','Operations','peter@gmail.com')
+--insert into Employee (emp_id,first_name,last_name,department,email) values (2,'Rose','Bailey','Finance',null),(3,'Deby','Wagn','Finance','deby@gmail.com')(4,'John','Betty','Sales',null),(5,'David','Robinson','Finance',null);
+
+--select * from Employee;
+
+--IS NULL,IS NOT NULL,COUNT
+--select * from Employee where email IS NULL;
+--select * from Employee where email IS NOT NULL;
+--select count(*) from Employee where email IS NOT NULL;
+--select count(*) from Employee where email IS NULL;
+
+--select min(age) from Customers;
+--select max(age) from Customers;
+--select * from Customers group by country having max(age)
+
+--select country,count(*) as total_customers from Customers group by country
+--select sum(amount) from Orders;
+--select customer_id,item,avg(amount) from Orders group by item;
+
+
+--ORDER BY(sort either in asc or desc)
+--select * from Customers order by age
+--select * from Customers order by first_name,age
+--select * from Customers order by age DESC
+--select last_name,age from Customers where NOT country='UK' order by last_name
+
+--GROUP BY(group one or more rows on columns)
+--select country,count(*) as count from Customers group by country
+
+--LIKE(used along with where)
+--select *,country from Customers where country like 'UK'
+--select * from Customers where first_name like 'J%'
+--SELECT * FROM Customers WHERE country LIKE 'U_';
+
+--WILDCARDS->  %, _, [], !
+
+--SQL UNION- should have same column count, data type should be same,same order type,ignores duplicate, slower comparision
+--select age from Teachers union select age from Student;
+--SQL UNION ALL doesn't remove duplicates, better to use the UNION ALL to improve the performance
+
+--insert into Employee (emp_id,first_name,last_name,department,email) values (6,'Johnson','Bailey','Finance',null),(7,'Deeby','Waagn','Finance','deby@gmail.com'),(8,'Johnmm','Bettty','Sales',null);
+
+--create table Employee2(emp_id int primary key,first_name varchar(100),last_name varchar(100),department varchar(100),email varchar(100));
+--insert into Employee2 (emp_id,first_name,last_name,department,email) values (1,'Peter','Doe','Operations','peter@gmail.com')
+--insert into Employee2 (emp_id,first_name,last_name,department,email) values (2,'Rose','Bailey','Finance',null),(3,'Deby','Wagn','Finance','deby@gmail.com'),(4,'John','Betty','Sales',null),(5,'David','Robinson','Finance',null);
+
+--select emp_id,first_name from Employee where emp_id in(select emp_id from Employee2)
+--select Employee.first_name,Employee.emp_id from Employee join Employee2 on Employee.emp_id=Employee2.emp_id order by Employee.emp_id desc
+
+--CASE
+--select customer_id,first_name, 
+--CASE
+ --when country='UK'then'UNITED KINGDOM'
+ --when country='USA'then'UNITED STATES'
+ --ELSE'NOT KNOWN'
+--END as abbrevation
+--from Customers;
+
+--HAVING condition is checked for a group of rows,WHERE checks the individual row
+--having is used for aggregate funs, Where is not used for aggregate funs
+--having is used after GROUP BY, WHERE is used for before GROUP BY
+
+--JOIN, INNER JOIN, FULL OUTER JOIN,LEFT JOIN, RIGHT JOIN--JOIN and INNER JOIN are same
+--select Customers.customer_id,Customers.first_name FROM Customers JOIN Orders ON Customers.customer_id=Orders.customer_id;
+
+--select C.customer_id AS C_ID,C.first_name AS NAME,O.amount FROM Customers AS C JOIN Orders AS O ON C.customer_id=O.customer_id;
+
+--select C.customer_id AS C_ID,C.first_name AS NAME,O.amount FROM Customers AS C INNER JOIN Orders AS O ON C.customer_id=O.customer_id WHERE O.amount<500;
+
+--CREATE DATABASE my_db;
+--show databases
+--CREATE DATABASE if not exists my_db
+--use my_db
+--drop database my_db;
+--drop table employee;
+
+--ALTER, ADD, RENAME, MODIFY
+--ALTER TABLE Employee ADD age int;
+--alter table Employee RENAME first_name to name;
+--ALTER TABLE Employee 
+--MODIFY COLUMN age varchar(10);
+--ALTER TABLE Employee
+--MODIFY COLUMN age VARCHAR(2);
+
+--BACKUP DATABASE my_db TO DISK= 'c:\backup_mydb.bak';
+
+--update Employee set last_name='zzz' where emp_id=1;
+
+--create table EmployeeCopy(emp_id int,first_name varchar(100),last_name varchar(100),department varchar(10),email varchar(20));
+
+--SELECT * INTO EmployeeCopy FROM Employee2;
+
+--Delete supports WHERE but TRUNCATE doecnt support WHERE
+
+--CONSTRAINTS-> NOT NULL, UNIQUE, PRIMARY KEY, FOREIGN KEY, CHECK, CREATE INDEX, DEFAULT
+
+Create table Name1
+(
+F_Name varchar(20),
+L_Name varchar(20),
+Age INTEGER
+)
+
+Insert into Name1
+Values
+('Tom', 'Bombadil', 32),
+('Danny', 'Fartman', 43),
+('Stephine', 'Belchlord', 33),
+('Corry', 'Smallpants', 95)
+Go
+
+Update Name1
+Set F_Name = CONCAT(F_Name, ' ', L_Name)
+Go
+
+Alter Table Name1
+Drop column L_Name
+Go
+
+Update Table_Name
+Set F_Name
+
+
